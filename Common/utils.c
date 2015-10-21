@@ -69,7 +69,7 @@ uint getJPDidx(uint *vect, uint *A, uchar nVar, uchar strideIncluded)
 	    sark_free(stride);
     }
     else {
-		for(i=0; i<Nvar; i++) 
+		for(i=0; i<nVar; i++) 
 			Sum_over_i += A[i]*vect[i];
 	}
     return Sum_over_i;

@@ -165,8 +165,6 @@ endif
 	$(SPINN_DIRS)/tools/mkaplx $(APP).elf | $(CAT) - $(APP).bin > $(APP).aplx
 	$(RM) $(APP).bin RO_DATA.bin RW_DATA.bin
 	$(LS) $(APP).aplx
-	$(RM) -rf ../bin/$(APP).aplx
-	$(CP) $(APP).aplx ../bin/
 
 
 # Build the ELF file

@@ -27,9 +27,9 @@
 
 // SpiNNaker API
 #include <spin1_api.h>
-#include "../Common/spinFG.h"
-#include "../Common/spinErrDef.h"
-#include "../Common/utils.h"
+#include "../../Common/spinFG.h"
+#include "../../Common/spinErrDef.h"
+#include "../../Common/utils.h"
 
 #define DEF_WORKER_KEY	255
 #define DEF_MASTER_KEY	1
