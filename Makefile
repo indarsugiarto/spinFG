@@ -4,7 +4,7 @@ RM      := \rm -f
 
 all: FNodeMaster.aplx FNodeWorker.aplx IONode.aplx
 	@if [ -f FNode/FNodeMaster/FNodeMaster.aplx ]; then $(CP) FNode/FNodeMaster/FNodeMaster.aplx $(BIN_DIR); echo "Copying FNodeMaster.aplx to bin..."; fi
-	@if [ -f FNode/FNodeWorker/FNodeWorker.aplx ]; then $(CP) FNode/FNodeMaster/FNodeMaster.aplx $(BIN_DIR); echo "Copying FNodeWorker.aplx to bin..."; fi
+	@if [ -f FNode/FNodeWorker/FNodeWorker.aplx ]; then $(CP) FNode/FNodeWorker/FNodeWorker.aplx $(BIN_DIR); echo "Copying FNodeWorker.aplx to bin..."; fi
 	@if [ -f IONode/IONode.aplx ]; then $(CP) IONode/IONode.aplx $(BIN_DIR); "Copying IONode.aplx to bin..."; fi
 	@echo "All is done!"
 
