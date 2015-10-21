@@ -9,9 +9,6 @@ SOURCES += \
     IONode/IONode.c \
     Common/utils.c
 
-include(deployment.pri)
-qtcAddDeployment()
-
 INCLUDEPATH += \
     /opt/spinnaker_tools_134/include \
     Common
