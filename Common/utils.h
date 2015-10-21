@@ -5,7 +5,7 @@
 #include "spinFG.h"
 
 void reportErr(sdp_msg_t *err_msg, uchar errCode);
-uchar countAvailProc();
+uchar countAvailProc(uchar detectID);
 void getAssignment(uint *A, uint idx, uint *card, uchar nVar);
 uint getJPDidx(uint *vect, uint *A, uchar nVar, uchar strideIncluded);
 

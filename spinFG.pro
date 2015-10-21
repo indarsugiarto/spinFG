@@ -12,3 +12,6 @@ SOURCES += \
 INCLUDEPATH += \
     /opt/spinnaker_tools_134/include \
     Common
+
+OTHER_FILES += \
+    Makefile

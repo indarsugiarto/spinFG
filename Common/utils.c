@@ -6,7 +6,10 @@ inline void reportErr(sdp_msg_t *err_msg, uchar errCode)
 	spin1_send_sdp_msg(err_msg, SDP_TIMEOUT);
 }
 
-uchar countAvailProc()
+/* countAvailProc() will detect
+
+*/
+uchar countAvailProc(uchar detectID)
 {
 	uchar n, cntr, i;
 	//TODO: modify this by reading r4 of the system controller -> not necessary!!!
@@ -16,7 +19,7 @@ uchar countAvailProc()
 	//TODO: read, just like ps, to see how many workers have been up (with app-id = 17)
 	// next, get the active workers that's already running app-ID WORKER_ID
 	for(i=0; i<n; i++) {
-		if(sv->vcpu_base[i+2].app_id == WORKER_ID && sv->vcpu_base[i+2].cpu_state == CPU_STATE_RUN)
+		if(sv->vcpu_base[i+2].app_id == detectID && sv->vcpu_base[i+2].cpu_state == CPU_STATE_RUN)
 			cntr++; //sv->vcpu_base[i+2] because 2 cores have been used for monitor cpu and master
 	}
 	return cntr;

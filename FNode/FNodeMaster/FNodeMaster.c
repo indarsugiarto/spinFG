@@ -464,14 +464,8 @@ void hello()
 	broadcastPing();
 }
 
-/* receiveSDP() will process SDP sent by host to core-17 on port-1
- * port-0 is prohibited because it is dedicated for debugging purpose
- *
- * TODO: port argument
- */
-void receiveSDP(uint mailbox, uint port)
+void handleSDPfromHost(sdp_msg_t *msg)
 {
-	sdp_msg_t *msg = (sdp_msg_t *) mailbox;
 	uint *data = (uint *) msg->data;
 
 	//io_printf(IO_STD, "I receive an SDP with cmd = %x\n", msg->cmd_rc);
@@ -560,7 +554,28 @@ void receiveSDP(uint mailbox, uint port)
 		spin1_delay_us(DEF_SPIN_DELAY);
 		break;
 	  }
-	  spin1_msg_free (msg);
+}
+
+/* handleSDPfromInternal() is mainly for handling belief message
+ * */
+void handleSDPfromInternal(sdp_msg_t *msg)
+{
+	// TODO: handle all msgFromA, msgFromB, msgFromC
+}
+
+/* receiveSDP() will process SDP sent by host to core-17 on port-1
+ * port-0 is prohibited because it is dedicated for debugging purpose
+ *
+ * TODO: port argument:
+ * 1 : communication with HOST
+ * 2 : communication with other spiNNaker chip
+ */
+void receiveSDP(uint mailbox, uint port)
+{
+	sdp_msg_t *msg = (sdp_msg_t *) mailbox;
+	if(port==SDP_PORT_HOST) handleSDPfromHost(msg);
+	if(port==SDP_PORT_SPIN)	handleSDPfromInternal(msg);
+	spin1_msg_free (msg);
 }
 
 int computeWorkingCoreLoad()
@@ -613,7 +628,7 @@ int initMe()
 
 	bRunning = 0;							//indicate that the belief propagation is not running
 
-	availCore = countAvailProc();
+	availCore = countAvailProc(WORKER_ID);
 	if(availCore==0) {
 		io_printf(IO_STD, "No worker is available.\n");
 		spin1_delay_us(DEF_SPIN_DELAY);

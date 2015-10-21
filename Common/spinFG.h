@@ -39,13 +39,13 @@
 								// during DMA transaction, the formula = MAX_SDP_DATA * MAX_SDP_CHUNK
 								// eg. 256*100/1024 = 32 kbytes
 
-#define MASTER_ID		128
-#define WORKER_ID		192
-#define MASTER_CORE		1
+#define MASTER_ID				128
+#define WORKER_ID				192
+#define MASTER_CORE				1
 #define IO_NODE_ID              168             // FNodeIO will be implemented on all cores in chip<0,0>
 
 //#define DTCM_BUF_SIZE 		MAX_SDP_DATA * MAX_SDP_CHUNK
-#define DTCM_BUF_SIZE	49152	// for eficiency, DTCM_BUF_SIZE must be a factor of 256 (MAX_SDP_DATA)
+#define DTCM_BUF_SIZE			49152	// for eficiency, DTCM_BUF_SIZE must be a factor of 256 (MAX_SDP_DATA)
 								// 49152 = 256*192
 
 /* SDP-related */
@@ -66,12 +66,18 @@
 #define HOST_SEND_NODE_IO_PARAM	0x201
 #define HOST_SEND_VAR_TO_DECODE 0x202
 #define HOST_REQUEST_POPCODE	0x203
+#define HOST_SEND_BIN_WIDTH_PARAM	0x204	// unfortunately, binWidth and midVals will be tightly coupled with the variable itself
+#define HOST_SEND_MID_VALS_PARAM	0x205
+
 
 // Others
 #define DEF_IPTAG				1		// default IPTag for this application
 #define DEF_RECV_PORT			17899
 #define DEF_ERR_TAG				2		// use IPTag 2 for sending error
 #define STD_ERR_PORT			17900
+
+#define SDP_PORT_HOST			1
+#define SDP_PORT_SPIN			2
 
 /* Memory and DMA related */
 #define SDRAM2DTCM_TAG		1
@@ -109,7 +115,9 @@ typedef struct io {
         uint val_in;
         uint val_out;
         uint *sdramLoc;             // this is where the population code is stored in SDRAM
-        //ushort factorID;            // So, we will know where the population code will be delived
+		uint *bwLoc;				// the location for binWidth in sdram
+		uint *mvLoc;				// the location of midVals in sdram
+		//ushort factorID;            // So, we will know where the population code will be delived
         uchar destChipX;            // later, factorID will be mapped to destChipX and destChipY
         uchar destChipY;
 } io_t;
