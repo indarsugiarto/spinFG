@@ -8,12 +8,6 @@
 #ifndef SPINFG_H_
 #define SPINFG_H_
 
-/* generic for debugging purpose */
-#define DEBUG_VERBOSE
-#define VERSION			1
-#define REVISION		2
-#define PTAG			1
-#define PCNTR			8
 /* History - Version
  * 1: initial remake of my old factor graph, now with FFG version
  *
@@ -68,7 +62,10 @@
 #define HOST_REQUEST_POPCODE	0x203
 #define HOST_SEND_BIN_WIDTH_PARAM	0x204	// unfortunately, binWidth and midVals will be tightly coupled with the variable itself
 #define HOST_SEND_MID_VALS_PARAM	0x205
+#define REPLY_SEND_VAR_TO_DECODE	0x212
 
+#define FNODE_SEND_POPCODES_TO_IO	0x301
+#define REPLY_FNODE_SEND_POPCODES	0x311
 
 // Others
 #define DEF_IPTAG				1		// default IPTag for this application
@@ -102,6 +99,10 @@
 #define MASTER_SEND_UPDATE_PARAMS	14
 #define MASTER_SEND_N_CORES_AVAIL	21
 
+#define PMF_GAUSSIAN				0
+#define PMF_SINGLE					1
+#define PMF_GAUSSIAN_SPREAD_RATIO	2
+
 typedef struct factor {
 	ushort ID;
 	uchar nScope;
@@ -111,15 +112,19 @@ typedef struct factor {
 } factor_t;
 
 typedef struct io {
-        ushort varID;
+		ushort nStates;
+		ushort nVars;
+		ushort popCodesType;				// 0 = Gaussian, 1 = single
+		uint valRange;
+		ushort varID;
         uint val_in;
         uint val_out;
         uint *sdramLoc;             // this is where the population code is stored in SDRAM
 		uint *bwLoc;				// the location for binWidth in sdram
 		uint *mvLoc;				// the location of midVals in sdram
 		//ushort factorID;            // So, we will know where the population code will be delived
-        uchar destChipX;            // later, factorID will be mapped to destChipX and destChipY
-        uchar destChipY;
+		ushort destChipX;            // later, factorID will be mapped to destChipX and destChipY
+		ushort destChipY;
 } io_t;
 
 

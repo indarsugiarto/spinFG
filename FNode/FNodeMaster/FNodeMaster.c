@@ -31,6 +31,14 @@
 #include "../../Common/spinErrDef.h"
 #include "../../Common/utils.h"
 
+/* generic for debugging purpose */
+#define DEBUG_VERBOSE
+#define VERSION			1
+#define REVISION		2
+#define PTAG			1
+#define PCNTR			8
+
+
 #define DEF_WORKER_KEY	255
 #define DEF_MASTER_KEY	1
 

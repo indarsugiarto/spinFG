@@ -1,6 +1,14 @@
 #include <spin1_api.h>
 #include "../../Common/spinFG.h"
 
+/* generic for debugging purpose */
+#define DEBUG_VERBOSE
+#define VERSION			1
+#define REVISION		2
+#define PTAG			1
+#define PCNTR			8
+
+
 #define bufTarget IO_BUF
 
 uchar myCoreID;
